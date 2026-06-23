@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <title>Muhammad Ahmad | Flutter Developer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #05070a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        .stars {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration) infinite;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        .gradient-bg {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: radial-gradient(circle at 20% 30%, #0f172a 0%, #020617 100%);
+            z-index: -2;
+        }
+        .floating-shapes {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        .shape {
+            position: absolute;
+            background: linear-gradient(135deg, rgba(30,136,229,0.08), rgba(108,99,255,0.08));
+            border-radius: 50%;
+            animation: floatShape 20s infinite;
+        }
+        @keyframes floatShape {
+            0%, 100% { transform: translate(0,0) rotate(0deg) scale(1); }
+            50% { transform: translate(80px, 40px) rotate(180deg) scale(1.2); }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in-delay-1 { animation-delay: 0.1s; }
+        .fade-in-delay-2 { animation-delay: 0.2s; }
+        .fade-in-delay-3 { animation-delay: 0.3s; }
+        .fade-in-delay-4 { animation-delay: 0.4s; }
+
+        .glow-text {
+            background: linear-gradient(135deg, #fff, #94A3B8, #1E88E5, #6C63FF);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 300% 300%;
+            animation: gradientShift 4s ease infinite;
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @media (min-width: 769px) {
+            .cursor {
+                width: 20px; height: 20px;
+                background: rgba(30,136,229,0.3);
+                border-radius: 50%;
+                position: fixed;
+                pointer-events: none;
+                z-index: 9999;
+                backdrop-filter: blur(4px);
+                transition: 0.1s;
+            }
+            .cursor-dot {
+                width: 5px; height: 5px;
+                background: #1E88E5;
+                border-radius: 50%;
+                position: fixed;
+                pointer-events: none;
+                z-index: 9999;
+            }
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+        @media (max-width:1200px){ .container { padding:0 30px; } }
+        @media (max-width:768px){ .container { padding:0 20px; } }
+
+        .navbar {
+            background: rgba(5,7,10,0.92);
+            backdrop-filter: blur(20px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(30,136,229,0.2);
+            padding: 15px 0;
+        }
+        .nav-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #1E88E5, #6C63FF, #00BCD4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: logoGlow 2s infinite alternate;
+        }
+        @keyframes logoGlow {
+            0% { filter: drop-shadow(0 0 0px rgba(30,136,229,0)); }
+            100% { filter: drop-shadow(0 0 15px rgba(30,136,229,0.5)); }
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        @media (max-width:768px){ .nav-links { gap:15px; justify-content:center; width:100%; } }
+        .nav-links button {
+            background: none;
+            border: none;
+            color: #e2e8f0;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: 0.3s;
+            position: relative;
+            padding: 5px 0;
+        }
+        .nav-links button::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: linear-gradient(90deg, #1E88E5, #6C63FF);
+            transition: width 0.3s;
+        }
+        .nav-links button:hover::after { width:100%; }
+        .nav-links button:hover { color:#1E88E5; transform:translateY(-2px); }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #1E88E5, #6C63FF);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 30px rgba(30,136,229,0.4);
+        }
+        .btn-whatsapp {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .btn-whatsapp:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 30px rgba(37,211,102,0.4);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid rgba(30,136,229,0.6);
+            color: #1E88E5;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .btn-outline:hover {
+            background: rgba(30,136,229,0.1);
+            transform: translateY(-3px);
+            border-color: #1E88E5;
+        }
+
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            padding: 60px 0;
+        }
+        .hero-grid {
+            display: flex;
+            gap: 60px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .hero-content { flex:1; min-width:280px; }
+        @media (max-width:968px){ .hero-grid { flex-direction:column; text-align:center; gap:40px; } .hero-content { text-align:center; } }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(30,136,229,0.15);
+            backdrop-filter: blur(10px);
+            padding: 8px 20px;
+            border-radius: 50px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(30,136,229,0.3);
+            animation: pulse 2s infinite;
+        }
+        @media (max-width:968px){ .hero-badge { margin:0 auto 30px auto; } }
+        @keyframes pulse {
+            0%,100%{ box-shadow:0 0 0 0 rgba(30,136,229,0.4); }
+            50%{ box-shadow:0 0 0 10px rgba(30,136,229,0); }
+        }
+        .hero-content h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fff, #94A3B8, #1E88E5, #6C63FF);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 300% 300%;
+            animation: gradientShift 5s ease infinite;
+        }
+        @media (max-width:1200px){ .hero-content h1 { font-size:3.2rem; } }
+        @media (max-width:768px){ .hero-content h1 { font-size:2.5rem; } }
+        .hero-content p { font-size:1.1rem; color:#94a3b8; margin-bottom:40px; max-width:550px; }
+        @media (max-width:968px){ .hero-content p { margin-left:auto; margin-right:auto; } }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        @media (max-width:968px){ .hero-stats { justify-content:center; } }
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #1E88E5, #6C63FF);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .flutter-3d-card { flex:1; display:flex; justify-content:center; align-items:center; perspective:1000px; }
+        .flutter-card-inner {
+            width: 300px; height: 300px;
+            background: linear-gradient(145deg, rgba(30,136,229,0.15), rgba(108,99,255,0.05));
+            backdrop-filter: blur(20px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgba(30,136,229,0.4);
+            animation: float3D 4s infinite ease-in-out;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+        @media (max-width:768px){ .flutter-card-inner { width:250px; height:250px; } }
+        @keyframes float3D {
+            0%,100%{ transform:translateY(0px) rotateX(0deg) rotateY(0deg); }
+            25%{ transform:translateY(-10px) rotateX(3deg) rotateY(5deg); }
+            50%{ transform:translateY(-20px) rotateX(5deg) rotateY(0deg); }
+            75%{ transform:translateY(-10px) rotateX(3deg) rotateY(-5deg); }
+        }
+        .profile-image { width:100%; height:100%; object-fit:cover; border-radius:50%; }
+        .fallback-icon {
+            position: absolute;
+            font-size: 100px;
+            background: linear-gradient(135deg, #1E88E5, #6C63FF);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: none;
+        }
+
+        .section { padding:80px 0; }
+        @media (max-width:768px){ .section { padding:50px 0; } }
+        .section-title {
+            font-size: 3rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 50px;
+            background: linear-gradient(135deg, #fff, #94A3B8, #1E88E5, #6C63FF);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 300% 300%;
+            animation: gradientShift 5s ease infinite;
+        }
+        @media (max-width:768px){ .section-title { font-size:2.2rem; } }
+
+        .skills-bars {
+            max-width: 800px;
+            margin: 0 auto 50px auto;
+            background: rgba(15,20,35,0.4);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 35px 40px;
+            border: 1px solid rgba(30,136,229,0.15);
+            transition: all 0.5s;
+        }
+        .skills-bars:hover {
+            border-color: rgba(30,136,229,0.5);
+            box-shadow: 0 0 40px rgba(30,136,229,0.1);
+        }
+        .skill-bar-item {
+            margin-bottom: 18px;
+        }
+        .skill-bar-item:last-child { margin-bottom: 0; }
+        .skill-bar-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+        .skill-bar-label span:first-child {
+            color: #e2e8f0;
+        }
+        .skill-bar-label span:last-child {
+            background: linear-gradient(135deg, #1E88E5, #6C63FF);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 700;
+        }
+        .skill-bar-track {
+            width: 100%;
+            height: 8px;
+            background: rgba(30,136,229,0.15);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        .skill-bar-fill {
+            height: 100%;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #1E88E5, #6C63FF, #00BCD4);
+            width: 0%;
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+        .skill-bar-fill::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 30px;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3));
+            border-radius: 10px;
+        }
+        .skills-bars-title {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, #fff, #94A3B8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+        .project-card {
+            background: rgba(15,20,35,0.6);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 25px;
+            transition: all 0.5s;
+            border: 1px solid rgba(30,136,229,0.2);
+            cursor: pointer;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(30,136,229,0.05), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+        .project-card:hover::before { opacity: 1; }
+        .project-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: rgba(30,136,229,0.6);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+        }
+        .project-img {
+            width: 100%;
+            object-fit: cover;
+            border-radius: 16px;
+            margin-bottom: 18px;
+            background: rgba(30,136,229,0.05);
+            border: 1px solid rgba(30,136,229,0.1);
+            transition: transform 0.5s;
+        }
+        .project-card:hover .project-img { transform: scale(1.03); }
+        .project-card h3 { 
+            font-size:1.4rem; 
+            margin-bottom:10px;
+            background: linear-gradient(135deg, #fff, #94A3B8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .tech-tag {
+            background: rgba(30,136,229,0.2);
+            padding:5px 12px;
+            border-radius:20px;
+            font-size:0.75rem;
+            display:inline-block;
+            margin:5px 5px 0 0;
+            border: 1px solid rgba(30,136,229,0.1);
+            transition: all 0.3s;
+        }
+        .tech-tag:hover {
+            background: rgba(30,136,229,0.4);
+            transform: translateY(-2px);
+        }
+        .project-links {
+            margin-top: 15px;
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+        .project-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 16px;
+            border-radius: 30px;
+            background: rgba(30,136,229,0.1);
+            border: 1px solid rgba(30,136,229,0.15);
+            transition: all 0.3s;
+        }
+        .project-links a:hover {
+            color: #1E88E5;
+            border-color: #1E88E5;
+            background: rgba(30,136,229,0.15);
+            transform: translateY(-2px);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        .skill-card {
+            background: rgba(15,20,35,0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.4s;
+            border: 1px solid rgba(30,136,229,0.2);
+        }
+        .skill-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            background: rgba(30,136,229,0.1);
+            border-color: rgba(30,136,229,0.5);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+        .skill-icon { font-size:2.5rem; margin-bottom:15px; }
+        .skill-card h4 { 
+            font-size:1.1rem; 
+            margin-bottom:5px;
+            background: linear-gradient(135deg, #fff, #94A3B8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .skill-level { 
+            background: linear-gradient(135deg, #1E88E5, #6C63FF);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-size:0.8rem;
+            font-weight: 600;
+        }
+
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .timeline-item {
+            background: rgba(15,20,35,0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            border-left: 4px solid #1E88E5;
+            transition: all 0.4s;
+        }
+        .timeline-item:hover {
+            transform: translateX(10px) scale(1.01);
+            background: rgba(30,136,229,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .timeline-item h3 { 
+            font-size:1.3rem; 
+            margin-bottom:5px;
+            background: linear-gradient(135deg, #fff, #94A3B8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .timeline-item .company-name { color: #6C63FF; font-weight: 600; }
+
+        .contact-form {
+            background: rgba(15,20,35,0.6);
+            backdrop-filter: blur(20px);
+            border-radius: 40px;
+            padding: 50px;
+            max-width: 900px;
+            margin: 0 auto;
+            transition: all 0.5s;
+        }
+        .contact-form:hover { border: 1px solid rgba(30,136,229,0.3); }
+        @media (max-width:768px){ .contact-form { padding:30px; } }
+        .form-group { margin-bottom:20px; }
+        
+        /* Modern Animated Inputs */
+        input, textarea, select {
+            width:100%;
+            padding: 16px 22px;
+            background: rgba(10,14,23,0.8);
+            border: 2px solid rgba(30,136,229,0.25);
+            border-radius: 14px;
+            color: white;
+            font-size:0.95rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: 'Inter', sans-serif;
+            outline: none;
+        }
+        input:hover, textarea:hover, select:hover {
+            border-color: rgba(30,136,229,0.5);
+        }
+        input:focus, textarea:focus, select:focus {
+            border-color: #1E88E5;
+            box-shadow: 0 0 0 4px rgba(30,136,229,0.15), 0 0 30px rgba(30,136,229,0.1);
+            transform: scale(1.01);
+            background: rgba(10,14,23,0.95);
+        }
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%231E88E5' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 18px center;
+            padding-right: 45px;
+            cursor: pointer;
+        }
+        select option {
+            background: #0a0e17;
+            color: white;
+            padding: 12px;
+        }
+        select option:hover {
+            background: rgba(30,136,229,0.3);
+        }
+        select:focus option:checked {
+            background: rgba(30,136,229,0.3);
+        }
+        /* Custom select styling for better padding */
+        select::-ms-expand { display: none; }
+        
+        select option {
+            padding: 12px 16px;
+        }
+        
+        textarea { border-radius:16px; resize:vertical; min-height:120px; }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        @media (max-width:768px){ .form-row { grid-template-columns:1fr; } }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        .social-icon {
+            width: 50px; height:50px;
+            background: rgba(30,136,229,0.1);
+            border-radius:50%;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:1.5rem;
+            color:#1E88E5;
+            transition: all 0.4s;
+            cursor:pointer;
+        }
+        .social-icon:hover {
+            transform:translateY(-6px) scale(1.15);
+            background:rgba(30,136,229,0.3);
+            color:#6C63FF;
+            box-shadow: 0 10px 30px rgba(30,136,229,0.2);
+        }
+        footer {
+            text-align:center;
+            padding:40px 20px;
+            border-top:1px solid rgba(30,136,229,0.2);
+            margin-top:40px;
+        }
+        .quick-contact {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 28px 0 10px;
+        }
+        .quick-contact a {
+            color: #94a3b8;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(30,136,229,0.08);
+            padding: 8px 18px;
+            border-radius: 40px;
+            border: 1px solid rgba(30,136,229,0.15);
+            transition: 0.4s;
+            font-size: 0.9rem;
+        }
+        .quick-contact a:hover { 
+            color:#1E88E5; 
+            border-color:#1E88E5; 
+            background:rgba(30,136,229,0.15);
+            transform: translateY(-2px);
+        }
+        .whatsapp-link { border-color: rgba(37,211,102,0.3) !important; }
+        .whatsapp-link:hover { border-color: #25D366 !important; color: #25D366 !important; background: rgba(37,211,102,0.1) !important; }
+
+        ::-webkit-scrollbar { width:8px; }
+        ::-webkit-scrollbar-track { background:#1a1a2e; border-radius:10px; }
+        ::-webkit-scrollbar-thumb { 
+            background: linear-gradient(135deg, #1E88E5, #6C63FF);
+            border-radius:10px; 
+        }
+        @media (max-width:768px){ .cursor, .cursor-dot { display:none; } }
+
+        .contact-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #1E88E5, #6C63FF, #00BCD4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        /* Label animation */
+        .form-group {
+            position: relative;
+        }
+        .form-group label {
+            position: absolute;
+            left: 22px;
+            top: -10px;
+            background: rgba(15,20,35,0.9);
+            padding: 0 8px;
+            font-size: 0.75rem;
+            color: #1E88E5;
+            border-radius: 6px;
+            opacity: 0;
+            transition: all 0.3s;
+            pointer-events: none;
+        }
+        .form-group input:focus + label,
+        .form-group select:focus + label,
+        .form-group textarea:focus + label {
+            opacity: 1;
+            top: -10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="gradient-bg"></div>
+<div class="stars" id="stars"></div>
+<div class="floating-shapes" id="shapes"></div>
+<div class="cursor"></div>
+<div class="cursor-dot"></div>
+
+<nav class="navbar">
+    <div class="container nav-flex">
+        <div class="logo"><i class="fab fa-flutter"></i> FlutterForge</div>
+        <div class="nav-links">
+            <button data-nav="home">Home</button>
+            <button data-nav="projects">Projects</button>
+            <button data-nav="skills">Skills</button>
+            <button data-nav="experience">Experience</button>
+            <button data-nav="contact">Contact</button>
+        </div>
+    </div>
+</nav>
+
+<main>
+    <!-- Hero -->
+    <section id="home" class="hero">
+        <div class="container hero-grid">
+            <div class="hero-content fade-in">
+                <div class="hero-badge"><i class="fab fa-flutter"></i><span>Flutter Developer • 1+ Years</span></div>
+                <h1>Building Dreams Into Digital Reality</h1>
+                <p>Hi, I'm <span class="gradient-text">Muhammad Ahmad</span> — passionate Flutter developer creating stunning cross-platform apps that users love.</p>
+                <div style="display:flex; gap:15px; flex-wrap:wrap;">
+                    <button onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" class="btn-primary"><i class="fas fa-paper-plane"></i> Hire Me</button>
+                    <button onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})" class="btn-outline"><i class="fab fa-github"></i> Portfolio</button>
+                </div>
+                <div class="hero-stats">
+                    <div><div class="stat-number">13+</div><div style="color:#94a3b8;">Projects</div></div>
+                    <div><div class="stat-number">8+</div><div style="color:#94a3b8;">Clients</div></div>
+                    <div><div class="stat-number">5⭐</div><div style="color:#94a3b8;">Ratings</div></div>
+                </div>
+            </div>
+            <div class="flutter-3d-card fade-in fade-in-delay-2">
+                <div class="flutter-card-inner">
+                    <img src="WhatsApp Image 2026-03-18 at 3.42.40 PM.jpeg" alt="Muhammad Ahmad" class="profile-image" />
+                    <i class="fab fa-flutter fallback-icon"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="section">
+        <div class="container">
+            <h2 class="section-title fade-in">Featured Projects</h2>
+            <div class="projects-grid" id="projectsGrid"></div>
+        </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="section">
+        <div class="container">
+            <h2 class="section-title fade-in">Tech Arsenal</h2>
+            <div class="skills-bars fade-in">
+                <div class="skills-bars-title"><i class="fas fa-chart-line" style="margin-right:12px;"></i>Skills Overview</div>
+                <div id="skillsBarsContainer"></div>
+            </div>
+            <div class="skills-grid" id="skillsGrid"></div>
+        </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience" class="section">
+        <div class="container">
+            <h2 class="section-title fade-in">Work Experience</h2>
+            <div class="timeline" id="timeline"></div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title fade-in">Let's Work Together</h2>
+            <div class="contact-form fade-in">
+                <div class="quick-contact">
+                    <a href="https://mail.google.com/mail/u/0/?fs=1&to=ch.muhammad8013@gmail.com" target="_blank"><i class="fas fa-envelope"></i> Gmail</a>
+                    <a href="https://wa.me/923006930166" target="_blank" class="whatsapp-link"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                    <a href="https://linkedin.com/in/muhammad-ahmad-1995aa377" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                    <a href="https://github.com/ch-ahmad688" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                </div>
+                
+                <p style="text-align:center; color:#94a3b8; margin-bottom:20px;">
+                    <i class="fas fa-phone" style="color:#25D366;"></i> Direct WhatsApp: 
+                    <a href="https://wa.me/923006930166" target="_blank" style="color:#25D366; font-weight:600; text-decoration:none;">+92 300-6930166</a>
+                </p>
+
+                <div class="contact-buttons">
+                    <a href="https://wa.me/923006930166?text=Hello%20Muhammad%2C%20I%27m%20interested%20in%20your%20Flutter%20development%20services.%20I%20have%20a%20project%20to%20discuss." target="_blank" class="btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i> Message on WhatsApp
+                    </a>
+                    <a href="https://mail.google.com/mail/u/0/?fs=1&to=ch.muhammad8013@gmail.com" target="_blank" class="btn-primary">
+                        <i class="fas fa-envelope"></i> Send Email
+                    </a>
+                </div>
+
+                <p style="text-align:center; color:#64748b; font-size:0.9rem; margin-bottom:20px;">
+                    Or fill out the form below and I'll reply within 24h
+                </p>
+
+                <form id="contactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="text" name="name" placeholder="Your Name *" required />
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email" placeholder="Email Address *" required />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="number" name="age" placeholder="Age *" required />
+                        </div>
+                        <div class="form-group">
+                            <select name="gender" required>
+                                <option value="">Select Gender *</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" name="phone" placeholder="Phone Number *" required />
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="subject" placeholder="Subject *" required />
+                    </div>
+                    <div class="form-group">
+                        <textarea rows="4" name="message" placeholder="Tell me about your project... *" required></textarea>
+                    </div>
+                    <div style="text-align:center; display:flex; gap:15px; justify-content:center; flex-wrap:wrap;">
+                        <button type="button" onclick="sendWhatsAppMessage()" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> Send via WhatsApp</button>
+                    </div>
+                </form>
+
+                <div class="social-links">
+                    <div class="social-icon" onclick="window.open('https://github.com/ch-ahmad688','_blank')"><i class="fab fa-github"></i></div>
+                    <div class="social-icon" onclick="window.open('https://linkedin.com/in/muhammad-ahmad-1995aa377','_blank')"><i class="fab fa-linkedin-in"></i></div>
+                    <div class="social-icon" onclick="window.open('https://wa.me/923006930166','_blank')"><i class="fab fa-whatsapp"></i></div>
+                    <div class="social-icon" onclick="window.open('https://mail.google.com/mail/u/0/?fs=1&to=ch.muhammad8013@gmail.com','_blank')"><i class="fas fa-envelope"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <p>© 2025 <span class="gradient-text">Muhammad Ahmad</span> · Flutter Developer · Sahiwal, Pakistan</p>
+        <p style="color:#64748b; font-size:0.85rem; margin-top:6px;">
+            <i class="fas fa-phone"></i> <a href="https://wa.me/923006930166" target="_blank" style="color:#25D366; text-decoration:none;">+92 300-6930166</a> · 
+            <i class="fas fa-map-pin"></i> Sahiwal, Pakistan
+        </p>
+    </div>
+</footer>
+
+<script>
+    const projects = [
+        { 
+            title: "Movie Ticket Booking", 
+            desc: "Complete cinema booking app with seat selection, showtimes, payment integration, and real-time availability.", 
+            tags: ["Flutter", "Firebase", "GetX", "Stripe"],
+            img: "1 (1).png",
+            github:"https://github.com/ch-ahmad688/Movie",
+        },
+        { 
+            title: "Cook & Maid", 
+            desc: "Complete home service booking platform with real-time tracking, payment, and chat.", 
+            tags: ["Flutter", "Firebase", "GetX"],
+            img: "Splash Screen.png",
+            github:"https://github.com/ch-ahmad688/cook-made",
+        },
+        { 
+            title: "Rezorent", 
+            desc: "Hotel management app streamlining bookings, customer management, and billing.", 
+            tags: ["Flutter", "Firebase", "GetX"],
+            img: "Intro.png",
+            github: "https://github.com/ch-ahmad688/RezoRent",
+        },
+        { 
+            title: "Bike Shopping", 
+            desc: "Peugeot company online bike shopping app with live inventory and reviews.", 
+            tags: ["Flutter", "MySQL", "REST API"],
+            img: "1.png",
+            github: "https://github.com/ch-ahmad688/Bike_Shopping",
+        }
+    ];
+
+    const skillBars = [
+        { name: "Flutter & Dart", percent: 92 },
+        { name: "MySQL / Firebase", percent: 85 },
+        { name: "Python (NumPy/Pandas)", percent: 65 },
+        { name: "Jupyter / Anaconda", percent: 60 },
+        { name: "Cloud Services", percent: 72 },
+        { name: "Git & CI/CD", percent: 88 },
+        { name: "iOS & Android", percent: 80 }
+    ];
+
+    const skills = [
+        { icon: "fab fa-flutter", name: "Flutter & Dart", level: "Expert" },
+        { icon: "fas fa-database", name: "MySQL/Firebase", level: "Advanced" },
+        { icon: "fab fa-python", name: "Python", level: "Intermediate" },
+        { icon: "fas fa-cubes", name: "NumPy / Pandas", level: "Intermediate" },
+        { icon: "fas fa-book", name: "Jupyter / Anaconda", level: "Intermediate" },
+        { icon: "fas fa-cloud", name: "Cloud Services", level: "Advanced" },
+        { icon: "fab fa-git-alt", name: "Git & CI/CD", level: "Expert" },
+        { icon: "fas fa-mobile-alt", name: "iOS & Android", level: "Advanced" }
+    ];
+
+    const experiences = [
+        { year: "Feb 2026 – Present", title: "Flutter Developer (Part-Time)", company: "Jeux Developer, Sahiwal", desc: "Building and maintaining 5+ cross-platform apps with 5k+ combined downloads and 4.8+ ratings." },
+        { year: "Nov 2025 – Jan 2026", title: "Flutter Developer (Internship)", company: "DevelopersHub.com", desc: "Built cross-platform apps with 1k+ combined downloads and 4.8+ ratings." },
+        { year: "Jul 2025 – Oct 2025", title: "Flutter Developer (Training)", company: "ASquare Skills Academy, Sahiwal", desc: "Started Flutter journey, learned and contributed to live projects, mastered core concepts." }
+    ];
+
+    function renderProjects() {
+        const container = document.getElementById('projectsGrid');
+        if (!container) return;
+        container.innerHTML = projects.map((p, i) => `
+            <div class="project-card fade-in fade-in-delay-${(i % 4) + 1}">
+                <img src="${p.img}" alt="${p.title}" class="project-img" onerror="this.style.display='none'" />
+                <h3>${p.title}</h3>
+                <p style="color:#94a3b8; margin-bottom:15px; font-size:0.9rem;">${p.desc}</p>
+                <div>${p.tags.map(t => `<span class="tech-tag">${t}</span>`).join('')}</div>
+                <div class="project-links">
+                    <a href="${p.github}" target="_blank"><i class="fab fa-github"></i> Code</a>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function renderSkillsBars() {
+        const container = document.getElementById('skillsBarsContainer');
+        if (!container) return;
+        container.innerHTML = skillBars.map(s => `
+            <div class="skill-bar-item">
+                <div class="skill-bar-label">
+                    <span><i class="fas fa-circle" style="color:#1E88E5; font-size:0.6rem; margin-right:8px;"></i>${s.name}</span>
+                    <span>${s.percent}%</span>
+                </div>
+                <div class="skill-bar-track">
+                    <div class="skill-bar-fill" data-width="${s.percent}" style="width:0%;"></div>
+                </div>
+            </div>
+        `).join('');
+
+        setTimeout(() => {
+            document.querySelectorAll('.skill-bar-fill').forEach(bar => {
+                const width = bar.getAttribute('data-width');
+                bar.style.width = width + '%';
+            });
+        }, 500);
+    }
+
+    function renderSkills() {
+        const container = document.getElementById('skillsGrid');
+        if (!container) return;
+        container.innerHTML = skills.map((s, i) => `
+            <div class="skill-card fade-in fade-in-delay-${(i % 4) + 1}">
+                <div class="skill-icon"><i class="${s.icon}"></i></div>
+                <h4>${s.name}</h4>
+                <div class="skill-level">${s.level}</div>
+            </div>
+        `).join('');
+    }
+
+    function renderExperience() {
+        const container = document.getElementById('timeline');
+        if (!container) return;
+        container.innerHTML = experiences.map((exp, i) => `
+            <div class="timeline-item fade-in fade-in-delay-${(i % 3) + 1}">
+                <div style="color:#1E88E5; font-weight:bold; margin-bottom:8px; font-size:0.9rem;">${exp.year}</div>
+                <h3>${exp.title}</h3>
+                <div class="company-name">${exp.company}</div>
+                <p style="color:#94a3b8; font-size:0.9rem; margin-top:8px;">${exp.desc}</p>
+            </div>
+        `).join('');
+    }
+
+    function sendWhatsAppMessage() {
+        const name = document.getElementById('contactForm')?.querySelector('input[name="name"]')?.value || '';
+        const email = document.getElementById('contactForm')?.querySelector('input[name="email"]')?.value || '';
+        const phone = document.getElementById('contactForm')?.querySelector('input[name="phone"]')?.value || '';
+        const subject = document.getElementById('contactForm')?.querySelector('input[name="subject"]')?.value || '';
+        const message = document.getElementById('contactForm')?.querySelector('textarea[name="message"]')?.value || '';
+
+        let whatsappMsg = "Hello Muhammad, I'm interested in your Flutter development services.%0A%0A";
+        if (name) whatsappMsg += `Name: ${name}%0A`;
+        if (email) whatsappMsg += `Email: ${email}%0A`;
+        if (phone) whatsappMsg += `Phone: ${phone}%0A`;
+        if (subject) whatsappMsg += `Subject: ${subject}%0A`;
+        if (message) whatsappMsg += `Message: ${message}%0A`;
+        whatsappMsg += "%0AThanks!";
+
+        const url = `https://wa.me/923006930166?text=${whatsappMsg}`;
+        window.open(url, '_blank');
+    }
+
+    window.sendWhatsAppMessage = sendWhatsAppMessage;
+
+    function generateStars() {
+        const container = document.getElementById('stars');
+        if (!container) return;
+        container.innerHTML = '';
+        for (let i = 0; i < 150; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.width = Math.random() * 3 + 1 + 'px';
+            star.style.height = star.style.width;
+            star.style.setProperty('--duration', Math.random() * 3 + 1 + 's');
+            container.appendChild(star);
+        }
+    }
+
+    function generateShapes() {
+        const container = document.getElementById('shapes');
+        if (!container) return;
+        container.innerHTML = '';
+        for (let i = 0; i < 10; i++) {
+            const shape = document.createElement('div');
+            shape.className = 'shape';
+            shape.style.width = Math.random() * 150 + 50 + 'px';
+            shape.style.height = shape.style.width;
+            shape.style.left = Math.random() * 100 + '%';
+            shape.style.top = Math.random() * 100 + '%';
+            shape.style.animationDelay = Math.random() * 10 + 's';
+            shape.style.animationDuration = Math.random() * 20 + 10 + 's';
+            container.appendChild(shape);
+        }
+    }
+
+    function initCursor() {
+        if (window.innerWidth < 769) return;
+        const cursor = document.querySelector('.cursor');
+        const dot = document.querySelector('.cursor-dot');
+        if (!cursor || !dot) return;
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.transform = `translate(${e.clientX - 10}px, ${e.clientY - 10}px)`;
+            dot.style.transform = `translate(${e.clientX - 2.5}px, ${e.clientY - 2.5}px)`;
+        });
+        document.querySelectorAll('button, .project-card, .skill-card, .social-icon').forEach(el => {
+            el.addEventListener('mouseenter', () => { cursor.style.transform = 'scale(1.5)'; dot.style.transform = 'scale(0.5)'; });
+            el.addEventListener('mouseleave', () => { cursor.style.transform = 'scale(1)'; dot.style.transform = 'scale(1)'; });
+        });
+    }
+
+    document.querySelectorAll('[data-nav]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const id = btn.dataset.nav;
+            const el = document.getElementById(id);
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    });
+
+    generateStars();
+    generateShapes();
+    initCursor();
+    renderProjects();
+    renderSkillsBars();
+    renderSkills();
+    renderExperience();
+
+    const skillsSection = document.getElementById('skills');
+    let barsAnimated = false;
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !barsAnimated) {
+                barsAnimated = true;
+                document.querySelectorAll('.skill-bar-fill').forEach(bar => {
+                    const width = bar.getAttribute('data-width');
+                    bar.style.width = width + '%';
+                });
+            }
+        });
+    }, { threshold: 0.3 });
+    if (skillsSection) observer.observe(skillsSection);
+</script>
+</body>
+</html>
